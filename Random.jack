@@ -1,0 +1,22 @@
+class Random {
+    field int randNum;
+
+    function int modulo(int dividend, int divisor) {
+        var int remainder, quotient, integerPart;
+        let quotient = Math.divide(dividend, divisor);
+        let integerPart = Math.multiply(quotient, divisor);
+        let remainder = dividend - integerPart;
+        return remainder;
+    }
+
+    method int randInt(int modulus, int multiplier) {
+        let randNum = Random.modulo(Math.multiply(multiplier, randNum), modulus);
+        return randNum;
+    }
+
+    constructor Random new(int seed) {
+        let randNum = seed;
+        return this;
+    }
+
+}

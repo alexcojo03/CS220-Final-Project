@@ -1,0 +1,55 @@
+class SnakeGame {
+    field Snake player;
+    field Pos startPos;
+    field int currentDirection;
+
+    constructor SnakeGame new(int startX, int startY, int startDirection) {
+        let startPos = Pos.new(startX, startY);
+        let player = Snake.new(startPos, startDirection);
+        let currentDirection = startDirection;
+
+        return this;
+    }
+
+    method void start() {
+        // keep track of current key
+        var char key;
+        var boolean quit;
+
+        let quit = false;
+
+        // Create a loop, keep playing
+        // until user quits
+        while (~quit) {
+            // As long as key = 0, 
+            // keep moving in that direction
+            // Keeps looping until something other
+            // than 0 is pressed
+            while (key = 0) {
+                do player.move(currentDirection);
+                let key = Keyboard.keyPressed();
+            }
+            // Now, key is something other than 0
+            // Up arrow
+            if (key = 131) { let currentDirection = 0; }
+            // Right arrow
+            if (key = 132) { let currentDirection = 1; }
+            // Down arrow
+            if (key = 133) { let currentDirection = 2; }
+            // Left arrow
+            if (key = 130) { let currentDirection = 3; }
+
+            // User types 'Q' to quit
+            if (key = 81) { let quit = true; }
+
+            // Player cant do 180 deg turn
+            if (Random.modulo((currentDirection + 2), 4) = player.getDirection()) {
+                let currentDirection = player.getDirection();
+            }
+            
+            let key = 0;
+        }
+        return;
+    }
+
+}

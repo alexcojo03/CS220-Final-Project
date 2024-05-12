@@ -1,0 +1,41 @@
+class Main {
+    function void main() {
+        var SnakeGame game;
+        let game = SnakeGame.new(0, 0, 1);
+
+        do game.start();
+        /*
+        var Pos a, b, c, d, e, cur;
+        var List testList;
+        let a = Pos.new(1,2);
+        let b = Pos.new(3,4);
+        let c = Pos.new(5,6);
+        let d = Pos.new(7,8);
+        let e = Pos.new(9,9);
+        let testList = List.new(a);
+        do testList.pushFront(b);
+        do testList.pushFront(c);
+        do testList.pushFront(d);
+        do testList.pushFront(e);
+
+        let cur = testList.getFirstData();
+        do cur.print();
+        */
+
+        return;
+    }
+
+    function void printList(List list) {
+        var Node current;
+        var Pos currentData;
+        var int xPos, yPos;
+        let current = list.getFirstNode();
+        while (~(current = null)) {
+            let currentData = current.data();
+            do currentData.print();
+            do Output.println();
+            let current = current.getNext();
+        }
+        return;
+    }
+}

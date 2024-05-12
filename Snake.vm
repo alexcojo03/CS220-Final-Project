@@ -1,0 +1,174 @@
+function Snake.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push argument 1
+pop this 1
+push argument 0
+call List.new 1
+pop this 2
+push pointer 0
+return
+function Snake.getLength 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Snake.getDirection 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Snake.drawHead 3
+push argument 0
+pop pointer 0
+push this 2
+call List.getFirstData 1
+pop local 2
+push local 2
+call Pos.getX 1
+pop local 0
+push local 2
+call Pos.getY 1
+pop local 1
+push constant 1
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+push local 0
+push constant 15
+add
+push local 1
+push constant 15
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Snake.eraseTail 2
+push argument 0
+pop pointer 0
+call tail.getX 0
+pop local 0
+call tail.getY 0
+pop local 1
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push local 0
+push local 1
+push local 0
+push constant 15
+add
+push local 1
+push constant 15
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Snake.updateHead 3
+push argument 0
+pop pointer 0
+push this 2
+call List.getFirstData 1
+pop local 2
+push local 2
+call Pos.getX 1
+pop local 0
+push local 2
+call Pos.getY 1
+pop local 1
+push argument 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 2
+call Pos.getY 1
+push constant 16
+sub
+pop local 1
+label IF_FALSE0
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 2
+call Pos.getX 1
+push constant 16
+add
+pop local 0
+label IF_FALSE1
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 2
+call Pos.getY 1
+push constant 16
+add
+pop local 1
+label IF_FALSE2
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 2
+call Pos.getX 1
+push constant 16
+sub
+pop local 0
+label IF_FALSE3
+push local 0
+push local 1
+call Pos.new 2
+pop local 2
+push this 2
+push local 2
+call List.pushFront 2
+pop temp 0
+push argument 1
+pop this 1
+push constant 0
+return
+function Snake.updateTail 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function Snake.grow 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Snake.updateHead 2
+pop temp 0
+push pointer 0
+call Snake.drawHead 1
+pop temp 0
+push constant 0
+return
+function Snake.move 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+call Snake.grow 2
+pop temp 0
+push pointer 0
+call Snake.updateTail 1
+pop temp 0
+push constant 200
+call Sys.wait 1
+pop temp 0
+push constant 0
+return

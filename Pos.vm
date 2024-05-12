@@ -1,0 +1,74 @@
+function Pos.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function Pos.setX 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 0
+push constant 0
+return
+function Pos.setY 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push constant 0
+return
+function Pos.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Pos.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Pos.equals 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Pos.getX 1
+eq
+push this 1
+push argument 1
+call Pos.getY 1
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+goto IF_END0
+label IF_FALSE0
+push constant 0
+return
+label IF_END0
+function Pos.print 0
+push argument 0
+pop pointer 0
+push this 0
+call Output.printInt 1
+pop temp 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push this 1
+call Output.printInt 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,39 @@
+class Node {
+    field Pos data;
+    field Node next, prev;
+
+    constructor Node new(Pos posData, Node nextItem, Node previous) {
+        let data = posData;
+        let next = nextItem;
+        let prev = previous;
+        return this;
+    }
+
+    method void setNext(Node nextNode) {
+        let next = nextNode;
+        return;
+    }
+
+    method Node getNext() {
+        return next;
+    }
+
+    method void setPrev(Node previous) {
+        let prev = previous;
+        return;
+    }
+
+    method Node getPrev() {
+        return prev;
+    }
+
+    method Pos data() {
+        return data;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}

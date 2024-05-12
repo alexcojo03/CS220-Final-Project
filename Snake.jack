@@ -1,0 +1,93 @@
+class Snake {
+    field int length, direction;
+    field List segments;
+
+    constructor Snake new(Pos startPos, int startDir) {
+        let direction = startDir;
+        let segments = List.new(startPos);
+
+        return this;
+    }
+
+    method int getLength() {
+        return length;
+    }
+
+    method int getDirection() {
+        return direction;
+    }
+
+    method void drawHead() {
+        var int xPos, yPos;
+        var Pos headPos;
+        let headPos = segments.getFirstData();
+        let xPos = headPos.getX();
+        let yPos = headPos.getY();
+        
+        do Screen.setColor(1);
+        do Screen.drawRectangle(xPos, yPos, xPos + 15, yPos + 15);
+        
+        return;
+    }
+
+    method void eraseTail() {
+        var int xPos, yPos;
+        let xPos = tail.getX();
+        let yPos = tail.getY();
+
+        do Screen.setColor(0);
+        do Screen.drawRectangle(xPos, yPos, xPos + 15, yPos + 15);
+        
+        return;
+    }
+
+    method void updateHead(int nextDir) {
+        var int nextX, nextY;
+        var Pos head;
+        let head = segments.getFirstData();
+
+        let nextX = head.getX();
+        let nextY = head.getY();
+        if (nextDir = 0) { 
+            let nextY = head.getY() - 16;
+        } 
+        if (nextDir = 1) { 
+            let nextX = head.getX() + 16;
+        } 
+        if (nextDir = 2) { 
+            let nextY = head.getY() + 16;
+        } 
+        if (nextDir = 3) { 
+            let nextX = head.getX() - 16;
+        } 
+        let head = Pos.new(nextX, nextY);
+        
+        do segments.pushFront(head);
+        
+        let direction = nextDir;
+
+        return;
+    }
+
+    method void updateTail() {
+        return;
+    }
+
+    method void grow(int nextDir) {
+        do updateHead(nextDir);   
+        do drawHead();
+        
+        return;
+    }
+
+    method void move(int nextDir) {
+        do grow(nextDir);
+        
+        // do eraseTail();
+        do updateTail();
+
+        do Sys.wait(200);
+        return;
+    }
+
+}

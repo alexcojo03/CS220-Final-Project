@@ -1,0 +1,95 @@
+class List {
+    field Node first, last;
+    field int size;
+
+    constructor List new(Pos startPos) {
+        let first = Node.new(startPos, null, null);
+        let last = first;
+        let size = 1;
+
+        return this;
+    }
+
+    method void pushFront(Pos data) {
+        var Node newNode;
+        let newNode = Node.new(data, first, null);
+        do first.setPrev(newNode);
+        let first = newNode;
+
+        let size = size + 1;
+
+        return;
+    }
+
+    method Pos popBack() {
+        var Node previous, removedNode;
+        var Pos returnedData;
+
+        if (last = null) {
+            return null;
+        }
+        let previous = last.getPrev();
+        
+        if (~(previous = null)) {
+            do previous.setNext(null);
+        }
+
+        let removedNode = last;
+        let last = previous;
+        let returnedData = removedNode.data();
+        do removedNode.dispose();
+
+        let size = size - 1;
+
+        return returnedData;
+    }
+
+    method Node getFirstNode() {
+        return first;
+    }
+
+    method Pos getFirstData() {
+        var Pos data;
+        let data = first.data();
+        return data;
+    }
+
+    method int getSize() {
+        return size;
+    }
+
+    method boolean isEmpty() {
+        if (size = 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    method boolean isInList(int start, Pos item) {
+        var Node current;
+        var Pos currentData;
+        var int i;
+
+        let current = first;
+
+        let i = 0;
+        while(i < start) {
+            let current = current.getNext();
+            let i = i + 1;
+        }
+
+        let currentData = current.data();
+        while (~(currentData.equals(item)) & ~(current = null)) {
+            let current = current.getNext();
+            if (~(current = null)) {
+                let currentData = current.data();
+            }
+        }
+        if (current = null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
