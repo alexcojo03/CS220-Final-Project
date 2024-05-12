@@ -46,12 +46,17 @@ call Screen.drawRectangle 4
 pop temp 0
 push constant 0
 return
-function Snake.eraseTail 2
+function Snake.eraseTail 3
 push argument 0
 pop pointer 0
-call tail.getX 0
+push this 2
+call List.popBack 1
+pop local 2
+push local 2
+call Pos.getX 1
 pop local 0
-call tail.getY 0
+push local 2
+call Pos.getY 1
 pop local 1
 push constant 0
 call Screen.setColor 1
@@ -140,11 +145,6 @@ push argument 1
 pop this 1
 push constant 0
 return
-function Snake.updateTail 0
-push argument 0
-pop pointer 0
-push constant 0
-return
 function Snake.grow 0
 push argument 0
 pop pointer 0
@@ -162,10 +162,13 @@ push argument 0
 pop pointer 0
 push pointer 0
 push argument 1
-call Snake.grow 2
+call Snake.updateHead 2
 pop temp 0
 push pointer 0
-call Snake.updateTail 1
+call Snake.drawHead 1
+pop temp 0
+push pointer 0
+call Snake.eraseTail 1
 pop temp 0
 push constant 200
 call Sys.wait 1
