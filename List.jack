@@ -1,3 +1,8 @@
+/*
+ * Doubly linked list, implemented only a few functions 
+ * which were needed to represent snake body 
+ * Refer to Data structs and algo for help with methods
+ */
 class List {
     field Node first, last;
     field int size;
@@ -10,6 +15,7 @@ class List {
         return this;
     }
 
+    // Pushes a new Position object to front of list
     method void pushFront(Pos data) {
         var Node newNode;
         let newNode = Node.new(data, first, null);
@@ -21,15 +27,17 @@ class List {
         return;
     }
 
+    // Pops and returns item from back of list
     method Pos popBack() {
         var Node previous, removedNode;
         var Pos returnedData;
 
+        // checks if list is empty so as to not cause error
         if (last = null) {
             return null;
         }
+
         let previous = last.getPrev();
-        
         if (~(previous = null)) {
             do previous.setNext(null);
         }
@@ -37,10 +45,12 @@ class List {
         let removedNode = last;
         let last = previous;
         let returnedData = removedNode.data();
+        // deallocate node removed
         do removedNode.dispose();
 
         let size = size - 1;
 
+        // return data of deleted node
         return returnedData;
     }
 
@@ -66,6 +76,8 @@ class List {
         }
     }
 
+    // Checks if position object is in list, starting 
+    // at index start
     method boolean isInList(int start, Pos item) {
         var Node current;
         var Pos currentData;

@@ -1,3 +1,6 @@
+/*
+ * Simple position class holding x,y coordinates
+ */
 class Pos {
     field int x, y;
 
@@ -33,11 +36,12 @@ class Pos {
         }
     }
 
+    // Print coordinate to screen in simple "x, y"
     method void print() {
         do Output.printInt(x);
-        do Output.printString(" ");
+        do Output.printString(", ");
         do Output.printInt(y);
-        
+
         return;
     }
 }

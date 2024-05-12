@@ -25,6 +25,7 @@ class Main {
         return;
     }
 
+    // Use for test purposes only
     function void printList(List list) {
         var Node current;
         var Pos currentData;

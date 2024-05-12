@@ -155,6 +155,9 @@ pop temp 0
 push pointer 0
 call Snake.drawHead 1
 pop temp 0
+push constant 200
+call Sys.wait 1
+pop temp 0
 push constant 0
 return
 function Snake.move 0
