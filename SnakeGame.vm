@@ -49,26 +49,16 @@ call Output.printInt 1
 pop temp 0
 push constant 0
 return
-function SnakeGame.run 3
+function SnakeGame.run 2
 push argument 0
 pop pointer 0
 push constant 0
-pop local 2
-push constant 0
 pop local 1
 label WHILE_EXP0
-push local 1
+push constant 0
 not
 not
 if-goto WHILE_END0
-push local 2
-push constant 1
-add
-pop local 2
-push local 2
-push constant 5
-call Random.modulo 2
-pop local 2
 call Keyboard.keyPressed 0
 pop local 0
 push local 0
@@ -128,35 +118,35 @@ call Snake.setDirection 2
 pop temp 0
 push this 0
 call Snake.isOutOfBounds 1
+push this 0
+call Snake.hitsItself 1
+or
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
 push constant 0
 return
 label IF_FALSE5
-push this 0
-call Snake.hitsItself 1
+push pointer 0
+call SnakeGame.playerEatsApple 1
 if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
-push constant 0
-return
-label IF_FALSE6
-push local 2
-push constant 0
-eq
-if-goto IF_TRUE7
-goto IF_FALSE7
-label IF_TRUE7
 push this 0
 call Snake.grow 1
 pop temp 0
-goto IF_END7
-label IF_FALSE7
+push this 2
+call Pos.dispose 1
+pop temp 0
+push pointer 0
+call SnakeGame.generateNewFruit 1
+pop temp 0
+goto IF_END6
+label IF_FALSE6
 push this 0
 call Snake.move 1
 pop temp 0
-label IF_END7
+label IF_END6
 push pointer 0
 call SnakeGame.updateScore 1
 pop temp 0
@@ -176,8 +166,48 @@ pop temp 0
 push this 1
 call Pos.dispose 1
 pop temp 0
+push this 2
+call Pos.dispose 1
+pop temp 0
 push pointer 0
 call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function SnakeGame.playerEatsApple 1
+push argument 0
+pop pointer 0
+push this 0
+call Snake.getHeadPosition 1
+pop local 0
+push local 0
+push this 2
+call Pos.equals 2
+return
+function SnakeGame.generateNewFruit 0
+push argument 0
+pop pointer 0
+push constant 128
+push constant 128
+call Pos.new 2
+pop this 2
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 2
+call Pos.getX 1
+push this 2
+call Pos.getY 1
+push this 2
+call Pos.getX 1
+push constant 15
+add
+push this 2
+call Pos.getY 1
+push constant 15
+add
+call Screen.drawRectangle 4
 pop temp 0
 push constant 0
 return

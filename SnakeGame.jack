@@ -26,20 +26,13 @@ class SnakeGame {
     method void run() {
         // keep track of current key
         var char key;
-        var boolean quit;
         // Test grow and shrink of snake by using integer variable
         var int i;
 
         let i = 0;
 
-        let quit = false;
-
         // Create a loop, keep playing
-        // until user quits
-        while (~quit) {
-            let i = i + 1;
-            let i = Random.modulo(i, 5);
-            
+        while (true) {
             let key = Keyboard.keyPressed();
             // Up arrow
             if (key = 131) { let currentDirection = 0; }
@@ -56,14 +49,15 @@ class SnakeGame {
             }
 
             do player.setDirection(currentDirection);
-            if (player.isOutOfBounds()) {
+            if (player.isOutOfBounds() | player.hitsItself()) {
                 return;
             }
-            if (player.hitsItself()) {
-                return;
-            }
-            if (i = 0) {
+            if (playerEatsApple()) {
                 do player.grow();
+                // delete old fruit position
+                do fruitPos.dispose();
+                // create a new fruit
+                do generateNewFruit();
             } else {
                 do player.move();
             }
@@ -78,8 +72,25 @@ class SnakeGame {
     method void dispose() {
         do player.dispose();
         do startPos.dispose();
-        // do fruitPos.dispose();
+        do fruitPos.dispose();
         do Memory.deAlloc(this);
         return;
     }
+    
+    method boolean playerEatsApple() {
+        var Pos head;
+        let head = player.getHeadPosition();
+        return head.equals(fruitPos);
+    }
+
+    method void generateNewFruit() {
+        // generate a new fruit
+        // using random and making sure it doesn't intersect with the player
+        let fruitPos = Pos.new(128,128);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(fruitPos.getX(), fruitPos.getY(), fruitPos.getX()+15, fruitPos.getY()+15);
+
+        return;
+    }
+
 }

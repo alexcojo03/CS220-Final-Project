@@ -285,6 +285,12 @@ return
 label IF_FALSE7
 push constant 0
 return
+function Snake.getHeadPosition 0
+push argument 0
+pop pointer 0
+push this 1
+call List.getFirstData 1
+return
 function Snake.dispose 0
 push argument 0
 pop pointer 0

@@ -38,6 +38,7 @@ class Main {
     }
     function void startGame() {
         do Screen.clearScreen();
+        do game.generateNewFruit();
         do game.run();
         return;
     }

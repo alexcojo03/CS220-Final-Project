@@ -156,6 +156,11 @@ class Snake {
         return false;
     }
 
+    // Returns position of the head of the snake
+    method Pos getHeadPosition() {
+        return segments.getFirstData();
+    }
+
     method void dispose() {
         do segments.dispose();
         do Memory.deAlloc(this);

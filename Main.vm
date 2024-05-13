@@ -43,6 +43,9 @@ function Main.startGame 0
 call Screen.clearScreen 0
 pop temp 0
 push static 0
+call SnakeGame.generateNewFruit 1
+pop temp 0
+push static 0
 call SnakeGame.run 1
 pop temp 0
 push constant 0
