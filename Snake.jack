@@ -88,7 +88,6 @@ class Snake {
         do updateHead(nextDir);   
         do drawHead();
         
-        do Sys.wait(200);
         return;
     }
 
@@ -98,7 +97,6 @@ class Snake {
         do drawHead();
         do eraseTail();
 
-        do Sys.wait(200);
         return;
     }
 
