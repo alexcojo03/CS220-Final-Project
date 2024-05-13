@@ -102,4 +102,13 @@ class Snake {
         return;
     }
 
+    // Checks if the snake hits itself
+    method boolean hitsItself() {
+        var Pos head;
+        let head = segments.getFirstData();
+        // Check if head is in same position as any other part of the body
+        // when searching the body, don't include head, so start search from index 1
+        return segments.contains(1, head);
+    }
+
 }

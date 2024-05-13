@@ -78,10 +78,14 @@ class List {
 
     // Checks if position object is in list, starting 
     // at index start
-    method boolean isInList(int start, Pos item) {
+    method boolean contains(int start, Pos item) {
         var Node current;
         var Pos currentData;
         var int i;
+        // Make sure that start position doesnt exceed list
+        if (~(start < size)) {
+            return false;
+        }
 
         let current = first;
 

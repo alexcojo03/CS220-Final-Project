@@ -11,6 +11,19 @@ class SnakeGame {
         return this;
     }
 
+    function void printGameOver() {
+        // Characters are 7 pixels wide, 10 pixels high
+        do Output.moveCursor(13, 26);
+        do Output.printString("Game Over");
+        return;
+    }
+
+    method void endGame() {
+        do SnakeGame.printGameOver();
+        do Sys.halt();
+        return;
+    }
+
     method void start() {
         // keep track of current key
         var char key;
@@ -24,23 +37,18 @@ class SnakeGame {
         // Create a loop, keep playing
         // until user quits
         while (~quit) {
-            // As long as key = 0, 
-            // keep moving in that direction
-            // Keeps looping until something other
-            // than 0 is pressed
-           
-            while (key = 0) {
-                let i = i + 1;
-                let i = Random.modulo(i, 5);
-                if (i = 0) {
-                    do player.grow(currentDirection);
-                } else {
-                    do player.move(currentDirection);
-                }
-                let key = Keyboard.keyPressed();
+            let i = i + 1;
+            let i = Random.modulo(i, 5);
+            if (i = 0) {
+                do player.grow(currentDirection);
+            } else {
+                do player.move(currentDirection);
             }
+            let key = Keyboard.keyPressed();
             
-            // Now, key is something other than 0
+            if (player.hitsItself()) {
+                do endGame();
+            }
             // Up arrow
             if (key = 131) { let currentDirection = 0; }
             // Right arrow
@@ -57,8 +65,6 @@ class SnakeGame {
             if (Random.modulo((currentDirection + 2), 4) = player.getDirection()) {
                 let currentDirection = player.getDirection();
             }
-            
-            let key = 0;
         }
         return;
     }

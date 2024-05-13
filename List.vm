@@ -111,9 +111,19 @@ label IF_FALSE0
 push constant 0
 return
 label IF_END0
-function List.isInList 3
+function List.contains 3
 push argument 0
 pop pointer 0
+push argument 1
+push this 2
+lt
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
 push this 0
 pop local 0
 push constant 0
@@ -155,26 +165,26 @@ push local 0
 push constant 0
 eq
 not
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push local 0
 call Node.data 1
 pop local 1
-label IF_FALSE0
+label IF_FALSE1
 goto WHILE_EXP1
 label WHILE_END1
 push local 0
 push constant 0
 eq
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push constant 0
 return
-goto IF_END1
-label IF_FALSE1
+goto IF_END2
+label IF_FALSE2
 push constant 0
 not
 return
-label IF_END1
+label IF_END2

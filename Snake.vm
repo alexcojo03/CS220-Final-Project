@@ -178,3 +178,14 @@ call Sys.wait 1
 pop temp 0
 push constant 0
 return
+function Snake.hitsItself 1
+push argument 0
+pop pointer 0
+push this 2
+call List.getFirstData 1
+pop local 0
+push this 2
+push constant 1
+push local 0
+call List.contains 3
+return
