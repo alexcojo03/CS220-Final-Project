@@ -39,6 +39,12 @@ class SnakeGame {
         while (~quit) {
             let i = i + 1;
             let i = Random.modulo(i, 5);
+            if (player.isOutOfBounds()) {
+                do endGame();
+            }
+            if (player.hitsItself()) {
+                do endGame();
+            }
             if (i = 0) {
                 do player.grow(currentDirection);
             } else {
@@ -46,9 +52,6 @@ class SnakeGame {
             }
             let key = Keyboard.keyPressed();
             
-            if (player.hitsItself()) {
-                do endGame();
-            }
             // Up arrow
             if (key = 131) { let currentDirection = 0; }
             // Right arrow
@@ -65,10 +68,9 @@ class SnakeGame {
             if (Random.modulo((currentDirection + 2), 4) = player.getDirection()) {
                 let currentDirection = player.getDirection();
             }
-            
+
             do Sys.wait(200);
         }
         return;
     }
-
 }

@@ -109,4 +109,48 @@ class Snake {
         return segments.contains(1, head);
     }
 
+    // Check if snake is out of bounds
+    method boolean isOutOfBounds() {
+        // Since x, y is top left corner for each pos object
+        // compensate by adding width of each square
+        var int headX, headY;
+        var Pos head;
+
+        let head = segments.getFirstData();
+        let headX = head.getX();
+        let headY = head.getY();
+        // Determine where the next position of the head
+        // will be based on snakes direction
+        if (direction = 0) {
+            let headY = headY - 15;
+        }
+        if (direction = 1) {
+            let headX = headX + 15;
+        }
+        if (direction = 2) {
+            let headY = headY + 15;
+        }
+        if (direction = 3) {
+            let headX = headX - 15;
+        }
+
+        // check left side
+        if (headX < 0) {
+            return true;
+        }
+        // check top side
+        if (headY < 0) {
+            return true;
+        }
+        // check right side
+        if (headX > 497) {
+            return true;
+        }
+        // check bottom side
+        if (headY > 241) {
+            return true;
+        }
+        return false;
+    }
+
 }
