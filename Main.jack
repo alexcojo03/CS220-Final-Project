@@ -12,8 +12,11 @@ class Main {
             // Begin and end game here
             do Main.startGame();
             do Main.endGame();
-            // let user restart or not
             let choice = Main.waitForKey();
+            // only allow q or r to be pressed 
+            while(~((choice = 82) | (choice = 81))) {
+                let choice = Main.waitForKey();
+            }
         }
 
         /*
@@ -45,7 +48,7 @@ class Main {
         do Output.moveCursor(13, 26);
         do Output.printString("Game Over");
         do Output.moveCursor(14, 12);
-        do Output.printString("Press any key to quit or 'R' to restart");
+        do Output.printString("Press 'Q' to quit or 'R' to restart");
         do game.dispose();
 
         return;

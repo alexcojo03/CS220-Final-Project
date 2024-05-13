@@ -22,9 +22,17 @@ push constant 0
 call Node.new 3
 pop local 0
 push this 0
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
 push local 0
 call Node.setPrev 2
 pop temp 0
+label IF_FALSE0
 push local 0
 pop this 0
 push this 2
@@ -33,7 +41,7 @@ add
 pop this 2
 push constant 0
 return
-function List.popBack 3
+function List.popBack 4
 push argument 0
 pop pointer 0
 push this 1
@@ -67,6 +75,12 @@ pop this 1
 push local 1
 call Node.data 1
 pop local 2
+push local 2
+call Pos.getX 1
+push local 2
+call Pos.getY 1
+call Pos.new 2
+pop local 3
 push local 1
 call Node.dispose 1
 pop temp 0
@@ -74,7 +88,7 @@ push this 2
 push constant 1
 sub
 pop this 2
-push local 2
+push local 3
 return
 function List.getFirstNode 0
 push argument 0
@@ -188,3 +202,40 @@ push constant 0
 not
 return
 label IF_END2
+function List.clear 1
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+push this 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END0
+push this 0
+pop local 0
+push this 0
+call Node.getNext 1
+pop this 0
+push local 0
+call Node.dispose 1
+pop temp 0
+push this 2
+push constant 1
+sub
+pop this 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function List.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call List.clear 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

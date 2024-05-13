@@ -7,6 +7,7 @@ class SnakeGame {
         let startPos = Pos.new(startX, startY);
         let player = Snake.new(startPos, startDirection);
         let currentDirection = startDirection;
+        let gameSpeed = 100;
 
         return this;
     }
@@ -29,7 +30,6 @@ class SnakeGame {
         // Test grow and shrink of snake by using integer variable
         var int i;
 
-        let gameSpeed = 100;
         let i = 0;
 
         let quit = false;
@@ -50,14 +50,12 @@ class SnakeGame {
             // Left arrow
             if (key = 130) { let currentDirection = 3; }
 
-            // User types 'Q' to quit
-            if (key = 81) { let quit = true; }
-
             // Player cant do 180 deg turn
             if (Random.modulo((currentDirection + 2), 4) = player.getDirection()) {
                 let currentDirection = player.getDirection();
             }
 
+            do player.setDirection(currentDirection);
             if (player.isOutOfBounds()) {
                 return;
             }
@@ -65,9 +63,9 @@ class SnakeGame {
                 return;
             }
             if (i = 0) {
-                do player.grow(currentDirection);
+                do player.grow();
             } else {
-                do player.move(currentDirection);
+                do player.move();
             }
 
             do updateScore();
