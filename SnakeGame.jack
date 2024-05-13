@@ -19,7 +19,21 @@ class SnakeGame {
     }
 
     method void endGame() {
+        var char choice;
+
         do SnakeGame.printGameOver();
+        do Output.moveCursor(14, 26);
+        do Output.printString("Press 'q' to quit or 'r' to restart");
+        let choice = 0;
+
+        while(~((choice = 82) | (choice = 81))) {
+            let choice = waitForKey();
+        }
+        do Output.printInt(choice);
+
+        if (choice = 82) {
+        }
+
         do Sys.halt();
         return;
     }
@@ -33,6 +47,27 @@ class SnakeGame {
         do Output.printInt(score);
 
         return;
+    }
+
+    method void start() {
+        do Output.moveCursor(8,8);
+        do Output.printString("Welcome to Snake");
+        do Output.println();
+        do Output.printString("Press any key to begin");
+        do waitForKey();
+        do Screen.clearScreen();
+        do run();
+        return;
+    }
+
+    method char waitForKey() {
+        var char key;
+        let key = 0;
+        while(key = 0) {
+            let key = Keyboard.keyPressed();
+        }
+        
+        return key;
     }
 
     method void run() {
@@ -87,6 +122,14 @@ class SnakeGame {
 
             do Sys.wait(gameSpeed);
         }
+        return;
+    }
+
+    method void dispose() {
+        do player.dispose();
+        do startPos.dispose();
+        do fruitPos.dispose();
+        do Memory.deAlloc(this);
         return;
     }
 }

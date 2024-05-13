@@ -1,9 +1,8 @@
 class Main {
     function void main() {
         var SnakeGame game;
-        let game = SnakeGame.new(0, 0, 1);
+        // let game = SnakeGame.new(0, 0, 1);
 
-        do game.run();
         /*
         var Pos a, b, c, d, e, cur;
         var List testList;
@@ -17,10 +16,8 @@ class Main {
         do testList.pushFront(c);
         do testList.pushFront(d);
         do testList.pushFront(e);
-
-        let cur = testList.getFirstData();
-        do cur.print();
         */
+
 
         return;
     }

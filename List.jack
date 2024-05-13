@@ -19,7 +19,9 @@ class List {
     method void pushFront(Pos data) {
         var Node newNode;
         let newNode = Node.new(data, first, null);
-        do first.setPrev(newNode);
+        if (~(first = null)) {
+            do first.setPrev(newNode);
+        }
         let first = newNode;
 
         let size = size + 1;
@@ -30,7 +32,7 @@ class List {
     // Pops and returns item from back of list
     method Pos popBack() {
         var Node previous, removedNode;
-        var Pos returnedData;
+        var Pos temp, returnedData;
 
         // checks if list is empty so as to not cause error
         if (last = null) {
@@ -44,7 +46,9 @@ class List {
 
         let removedNode = last;
         let last = previous;
-        let returnedData = removedNode.data();
+        let temp = removedNode.data();
+        // copy data because old data will be deletd
+        let returnedData = Pos.new(temp.getX(), temp.getY());
         // deallocate node removed
         do removedNode.dispose();
 
@@ -107,5 +111,22 @@ class List {
         } else {
             return true;
         }
+    }
+
+    method void clear() {
+        var Node remove;
+        while(~(first = null)) {
+            let remove = first;
+            let first = first.getNext();
+            do remove.dispose();
+            let size = size - 1;
+        }
+        return;
+    }
+
+    method void dispose() {
+        do clear();
+        do Memory.deAlloc(this);
+        return;
     }
 }

@@ -1,1 +1,8 @@
 *.vm
+Snake.vm
+Random.vm
+Pos.vm
+Node.vm
+Main.vm
+List.vm
+SnakeGame.vm
