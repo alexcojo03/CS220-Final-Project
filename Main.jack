@@ -3,7 +3,7 @@ class Main {
         var SnakeGame game;
         let game = SnakeGame.new(0, 0, 1);
 
-        do game.start();
+        do game.run();
         /*
         var Pos a, b, c, d, e, cur;
         var List testList;

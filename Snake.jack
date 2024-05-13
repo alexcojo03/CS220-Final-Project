@@ -1,5 +1,5 @@
 class Snake {
-    field int length, direction;
+    field int direction;
     field List segments;
 
     constructor Snake new(Pos startPos, int startDir) {
@@ -11,7 +11,7 @@ class Snake {
 
     // Returns lengths of snake
     method int getLength() {
-        return length;
+        return segments.getSize();
     }
 
     // direction of snake
@@ -122,16 +122,16 @@ class Snake {
         // Determine where the next position of the head
         // will be based on snakes direction
         if (direction = 0) {
-            let headY = headY - 15;
+            let headY = headY - 16;
         }
         if (direction = 1) {
-            let headX = headX + 15;
+            let headX = headX + 16;
         }
         if (direction = 2) {
-            let headY = headY + 15;
+            let headY = headY + 16;
         }
         if (direction = 3) {
-            let headX = headX - 15;
+            let headX = headX - 16;
         }
 
         // check left side

@@ -1,7 +1,7 @@
 class SnakeGame {
     field Snake player;
-    field Pos startPos;
-    field int currentDirection;
+    field Pos startPos, fruitPos;
+    field int currentDirection, gameSpeed;
 
     constructor SnakeGame new(int startX, int startY, int startDirection) {
         let startPos = Pos.new(startX, startY);
@@ -24,12 +24,25 @@ class SnakeGame {
         return;
     }
 
-    method void start() {
+    method void updateScore() {
+        var int score;
+        let score = player.getLength();
+        // Top left
+        do Output.moveCursor(0,0);
+        do Output.printString("Score: ");
+        do Output.printInt(score);
+
+        return;
+    }
+
+    method void run() {
         // keep track of current key
         var char key;
         var boolean quit;
         // Test grow and shrink of snake by using integer variable
         var int i;
+
+        let gameSpeed = 100;
         let i = 0;
 
         let quit = false;
@@ -39,19 +52,8 @@ class SnakeGame {
         while (~quit) {
             let i = i + 1;
             let i = Random.modulo(i, 5);
-            if (player.isOutOfBounds()) {
-                do endGame();
-            }
-            if (player.hitsItself()) {
-                do endGame();
-            }
-            if (i = 0) {
-                do player.grow(currentDirection);
-            } else {
-                do player.move(currentDirection);
-            }
-            let key = Keyboard.keyPressed();
             
+            let key = Keyboard.keyPressed();
             // Up arrow
             if (key = 131) { let currentDirection = 0; }
             // Right arrow
@@ -69,7 +71,21 @@ class SnakeGame {
                 let currentDirection = player.getDirection();
             }
 
-            do Sys.wait(200);
+            if (player.isOutOfBounds()) {
+                do endGame();
+            }
+            if (player.hitsItself()) {
+                do endGame();
+            }
+            if (i = 0) {
+                do player.grow(currentDirection);
+            } else {
+                do player.move(currentDirection);
+            }
+
+            do updateScore();
+
+            do Sys.wait(gameSpeed);
         }
         return;
     }
