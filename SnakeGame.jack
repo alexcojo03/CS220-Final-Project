@@ -22,11 +22,6 @@ class SnakeGame {
         return;
     }
 
-    method void start() {
-        do run();
-        return;
-    }
-
     method void run() {
         // keep track of current key
         var char key;
@@ -85,7 +80,7 @@ class SnakeGame {
     method void dispose() {
         do player.dispose();
         do startPos.dispose();
-        do fruitPos.dispose();
+        // do fruitPos.dispose();
         do Memory.deAlloc(this);
         return;
     }

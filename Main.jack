@@ -1,26 +1,20 @@
 class Main {
+    static SnakeGame game;
+
     function void main() {
-        var SnakeGame game;
         var char choice;
-        do Main.printTitle();
 
-        let game = SnakeGame.new(0, 0, 1);
-        do game.start();
+        let choice = 82;
 
-        do Main.printGameOver();
-        do Output.moveCursor(14, 26);
-        do Output.printString("Press 'q' to quit or 'r' to restart");
-        let choice = 0;
-
-        while(~((choice = 82) | (choice = 81))) {
+        while(choice = 82) {
+            do Main.printTitle();
+            let game = SnakeGame.new(0, 0, 1);
+            // Begin and end game here
+            do Main.startGame();
+            do Main.endGame();
+            // let user restart or not
             let choice = Main.waitForKey();
         }
-        do Output.printInt(choice);
-
-        if (choice = 82) {
-        }
-
-        do Sys.halt();
 
         /*
         var Pos a, b, c, d, e, cur;
@@ -39,23 +33,34 @@ class Main {
         return;
 
     }
+    function void startGame() {
+        do Screen.clearScreen();
+        do game.run();
+        return;
+    }
 
-    function void printGameOver() {
+
+    function void endGame() {
         // Characters are 7 pixels wide, 10 pixels high
         do Output.moveCursor(13, 26);
         do Output.printString("Game Over");
+        do Output.moveCursor(14, 12);
+        do Output.printString("Press any key to quit or 'R' to restart");
+        do game.dispose();
+
         return;
     }
 
 
     function void printTitle() {
-        do Output.moveCursor(8,8);
+        do Screen.clearScreen();
+        do Output.moveCursor(10,20);
         do Output.printString("Welcome to Snake");
-        do Output.println();
+        do Output.moveCursor(12,16);
         do Output.printString("Press any key to begin");
         do Main.waitForKey();
         do Screen.clearScreen();
-        
+
         return;
     }
 
