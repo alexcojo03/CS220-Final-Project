@@ -11,33 +11,6 @@ class SnakeGame {
         return this;
     }
 
-    function void printGameOver() {
-        // Characters are 7 pixels wide, 10 pixels high
-        do Output.moveCursor(13, 26);
-        do Output.printString("Game Over");
-        return;
-    }
-
-    method void endGame() {
-        var char choice;
-
-        do SnakeGame.printGameOver();
-        do Output.moveCursor(14, 26);
-        do Output.printString("Press 'q' to quit or 'r' to restart");
-        let choice = 0;
-
-        while(~((choice = 82) | (choice = 81))) {
-            let choice = waitForKey();
-        }
-        do Output.printInt(choice);
-
-        if (choice = 82) {
-        }
-
-        do Sys.halt();
-        return;
-    }
-
     method void updateScore() {
         var int score;
         let score = player.getLength();
@@ -50,24 +23,8 @@ class SnakeGame {
     }
 
     method void start() {
-        do Output.moveCursor(8,8);
-        do Output.printString("Welcome to Snake");
-        do Output.println();
-        do Output.printString("Press any key to begin");
-        do waitForKey();
-        do Screen.clearScreen();
         do run();
         return;
-    }
-
-    method char waitForKey() {
-        var char key;
-        let key = 0;
-        while(key = 0) {
-            let key = Keyboard.keyPressed();
-        }
-        
-        return key;
     }
 
     method void run() {
@@ -107,10 +64,10 @@ class SnakeGame {
             }
 
             if (player.isOutOfBounds()) {
-                do endGame();
+                return;
             }
             if (player.hitsItself()) {
-                do endGame();
+                return;
             }
             if (i = 0) {
                 do player.grow(currentDirection);

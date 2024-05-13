@@ -1,7 +1,26 @@
 class Main {
     function void main() {
         var SnakeGame game;
-        // let game = SnakeGame.new(0, 0, 1);
+        var char choice;
+        do Main.printTitle();
+
+        let game = SnakeGame.new(0, 0, 1);
+        do game.start();
+
+        do Main.printGameOver();
+        do Output.moveCursor(14, 26);
+        do Output.printString("Press 'q' to quit or 'r' to restart");
+        let choice = 0;
+
+        while(~((choice = 82) | (choice = 81))) {
+            let choice = Main.waitForKey();
+        }
+        do Output.printInt(choice);
+
+        if (choice = 82) {
+        }
+
+        do Sys.halt();
 
         /*
         var Pos a, b, c, d, e, cur;
@@ -17,11 +36,39 @@ class Main {
         do testList.pushFront(d);
         do testList.pushFront(e);
         */
+        return;
 
+    }
 
+    function void printGameOver() {
+        // Characters are 7 pixels wide, 10 pixels high
+        do Output.moveCursor(13, 26);
+        do Output.printString("Game Over");
         return;
     }
 
+
+    function void printTitle() {
+        do Output.moveCursor(8,8);
+        do Output.printString("Welcome to Snake");
+        do Output.println();
+        do Output.printString("Press any key to begin");
+        do Main.waitForKey();
+        do Screen.clearScreen();
+        
+        return;
+    }
+
+    function char waitForKey() {
+        var char key;
+        let key = 0;
+        while(key = 0) {
+            let key = Keyboard.keyPressed();
+        }
+        
+        return key;
+    }
+    
     // Use for test purposes only
     function void printList(List list) {
         var Node current;
