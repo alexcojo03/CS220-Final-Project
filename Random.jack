@@ -1,5 +1,6 @@
 class Random {
-    field int randNum;
+    field int multiplier, randNum, modulus;
+    static Array primeNumbers;
 
     function int modulo(int dividend, int divisor) {
         var int remainder, quotient, integerPart;
@@ -9,12 +10,20 @@ class Random {
         return remainder;
     }
 
-    method int randInt(int modulus, int multiplier) {
+    method void generate() {
         let randNum = Random.modulo(Math.multiply(multiplier, randNum), modulus);
-        return randNum;
+        return;
+    }
+
+    method int randInt(int upper) {
+        do generate();
+        return Random.modulo(randNum, upper);
     }
 
     constructor Random new(int seed) {
+        // let primeNumbers = Array.new(100);
+        let multiplier = 6;
+        let modulus = 521;
         let randNum = seed;
         return this;
     }

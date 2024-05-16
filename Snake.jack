@@ -112,6 +112,11 @@ class Snake {
         return segments.contains(1, head);
     }
 
+    // checks if a position is part of the snake
+    method boolean containsSegment(Pos segment) {
+        return segments.contains(0, segment);
+    }
+
     // Check if snake is out of bounds
     method boolean isOutOfBounds() {
         // Since x, y is top left corner for each pos object

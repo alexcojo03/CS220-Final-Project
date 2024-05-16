@@ -187,6 +187,14 @@ push constant 1
 push local 0
 call List.contains 3
 return
+function Snake.containsSegment 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 0
+push argument 1
+call List.contains 3
+return
 function Snake.isOutOfBounds 3
 push argument 0
 pop pointer 0

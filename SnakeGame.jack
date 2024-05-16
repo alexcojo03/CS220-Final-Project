@@ -1,10 +1,12 @@
 class SnakeGame {
     field Snake player;
     field Pos startPos, fruitPos;
+    field Random random;
     field int currentDirection, gameSpeed;
 
-    constructor SnakeGame new(int startX, int startY, int startDirection) {
+    constructor SnakeGame new(int startX, int startY, int startDirection, int startSeed) {
         let startPos = Pos.new(startX, startY);
+        let random = Random.new(startSeed);
         let player = Snake.new(startPos, startDirection);
         let currentDirection = startDirection;
         let gameSpeed = 100;
@@ -86,11 +88,25 @@ class SnakeGame {
     method void generateNewFruit() {
         // generate a new fruit
         // using random and making sure it doesn't intersect with the player
-        let fruitPos = Pos.new(128,128);
+        var int randX, randY;
+        let randX = random.randInt(32);
+        let randY = random.randInt(16);
+        // Positions should be at multiples of 16 to align with the snake
+        let fruitPos = Pos.new(Math.multiply(randX, 16), Math.multiply(randY, 16));
+        // Make sure new fruit is not generated inside of the snake
+        while(player.containsSegment(fruitPos)) {
+            do fruitPos.dispose();
+            let fruitPos = Pos.new(Math.multiply(randX, 16), Math.multiply(randY, 16));
+        }
+
         do Screen.setColor(true);
-        do Screen.drawRectangle(fruitPos.getX(), fruitPos.getY(), fruitPos.getX()+15, fruitPos.getY()+15);
+        do Screen.drawRectangle(fruitPos.getX(), fruitPos.getY(), fruitPos.getX() + 15, fruitPos.getY() + 15);
 
         return;
+    }
+
+    method int getScore() {
+        return player.getLength();
     }
 
 }

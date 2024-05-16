@@ -1,6 +1,8 @@
-function Main.main 1
+function Main.main 3
 push constant 82
 pop local 0
+push constant 0
+pop local 1
 label WHILE_EXP0
 push local 0
 push constant 82
@@ -8,14 +10,22 @@ eq
 not
 if-goto WHILE_END0
 call Main.printTitle 0
-pop temp 0
+pop local 0
+push local 1
+push local 0
+add
+pop local 2
 push constant 0
 push constant 0
 push constant 1
-call SnakeGame.new 3
+push local 2
+call SnakeGame.new 4
 pop static 0
 call Main.startGame 0
 pop temp 0
+push static 0
+call SnakeGame.getScore 1
+pop local 1
 call Main.endGame 0
 pop temp 0
 call Main.waitForKey 0
@@ -160,7 +170,7 @@ call SnakeGame.dispose 1
 pop temp 0
 push constant 0
 return
-function Main.printTitle 0
+function Main.printTitle 1
 call Screen.clearScreen 0
 pop temp 0
 push constant 10
@@ -256,10 +266,10 @@ call String.appendChar 2
 call Output.printString 1
 pop temp 0
 call Main.waitForKey 0
-pop temp 0
+pop local 0
 call Screen.clearScreen 0
 pop temp 0
-push constant 0
+push local 0
 return
 function Main.waitForKey 1
 push constant 0

@@ -13,22 +13,36 @@ sub
 pop local 0
 push local 0
 return
+function Random.generate 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Math.multiply 2
+push this 2
+call Random.modulo 2
+pop this 1
+push constant 0
+return
 function Random.randInt 0
 push argument 0
 pop pointer 0
-push argument 2
-push this 0
-call Math.multiply 2
+push pointer 0
+call Random.generate 1
+pop temp 0
+push this 1
 push argument 1
 call Random.modulo 2
-pop this 0
-push this 0
 return
 function Random.new 0
-push constant 1
+push constant 3
 call Memory.alloc 1
 pop pointer 0
-push argument 0
+push constant 6
 pop this 0
+push constant 521
+pop this 2
+push argument 0
+pop this 1
 push pointer 0
 return

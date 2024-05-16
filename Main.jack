@@ -2,15 +2,40 @@ class Main {
     static SnakeGame game;
 
     function void main() {
-        var char choice;
+        var int choice, score, seed;
+        /*
+        var Random random;
+        var int i, count, end;
+        let random = Random.new(3);
+        let i = random.randInt(512);
+        do Output.printInt(i);
+        let end = i;
+        let i = random.randInt(512);
+        let count = 0;
+        while (~(i = end)) {
+            let i = random.randInt(512);
+            do Output.printInt(i);
+            do Output.printString(" ");
+            let count = count + 1;
+        }
+        do Screen.clearScreen();
+        do Output.printInt(count);
+        do Sys.halt();
+        */
 
         let choice = 82;
+        let score = 0;
 
         while(choice = 82) {
-            do Main.printTitle();
-            let game = SnakeGame.new(0, 0, 1);
+            let choice = Main.printTitle();
+            
+            // Generate new game with random seed of the users input key + their score
+            // from the previous game
+            let seed = score + choice;
+            let game = SnakeGame.new(0, 0, 1, seed);
             // Begin and end game here
             do Main.startGame();
+            let score = game.getScore();
             do Main.endGame();
             let choice = Main.waitForKey();
             // only allow q or r to be pressed 
@@ -56,16 +81,16 @@ class Main {
     }
 
 
-    function void printTitle() {
+    function int printTitle() {
+        var int key;
         do Screen.clearScreen();
         do Output.moveCursor(10,20);
         do Output.printString("Welcome to Snake");
         do Output.moveCursor(12,16);
         do Output.printString("Press any key to begin");
-        do Main.waitForKey();
+        let key = Main.waitForKey();
         do Screen.clearScreen();
-
-        return;
+        return key;
     }
 
     function char waitForKey() {
