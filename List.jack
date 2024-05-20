@@ -113,6 +113,7 @@ class List {
         }
     }
 
+    // Clears all items in list and disposes the Nodes
     method void clear() {
         var Node remove;
         while(~(first = null)) {

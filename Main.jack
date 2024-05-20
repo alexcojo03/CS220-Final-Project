@@ -3,25 +3,6 @@ class Main {
 
     function void main() {
         var int choice, score, seed;
-        /*
-        var Random random;
-        var int i, count, end;
-        let random = Random.new(3);
-        let i = random.randInt(512);
-        do Output.printInt(i);
-        let end = i;
-        let i = random.randInt(512);
-        let count = 0;
-        while (~(i = end)) {
-            let i = random.randInt(512);
-            do Output.printInt(i);
-            do Output.printString(" ");
-            let count = count + 1;
-        }
-        do Screen.clearScreen();
-        do Output.printInt(count);
-        do Sys.halt();
-        */
 
         let choice = 82;
         let score = 0;
@@ -32,7 +13,7 @@ class Main {
             // Generate new game with random seed of the users input key + their score
             // from the previous game
             let seed = score + choice;
-            let game = SnakeGame.new(0, 0, 1, seed);
+            let game = SnakeGame.new(32, 16, 1, seed);
             // Begin and end game here
             do Main.startGame();
             let score = game.getScore();
@@ -43,23 +24,7 @@ class Main {
                 let choice = Main.waitForKey();
             }
         }
-
-        /*
-        var Pos a, b, c, d, e, cur;
-        var List testList;
-        let a = Pos.new(1,2);
-        let b = Pos.new(3,4);
-        let c = Pos.new(5,6);
-        let d = Pos.new(7,8);
-        let e = Pos.new(9,9);
-        let testList = List.new(a);
-        do testList.pushFront(b);
-        do testList.pushFront(c);
-        do testList.pushFront(d);
-        do testList.pushFront(e);
-        */
         return;
-
     }
     function void startGame() {
         do Screen.clearScreen();
@@ -68,7 +33,7 @@ class Main {
         return;
     }
 
-
+    // Clears the game and prints ending screen
     function void endGame() {
         // Characters are 7 pixels wide, 10 pixels high
         do Output.moveCursor(13, 26);
@@ -81,6 +46,7 @@ class Main {
     }
 
 
+    // Prints title of game and waits for key to be pressed
     function int printTitle() {
         var int key;
         do Screen.clearScreen();
@@ -88,11 +54,13 @@ class Main {
         do Output.printString("Welcome to Snake");
         do Output.moveCursor(12,16);
         do Output.printString("Press any key to begin");
+        // Wait for any key and return that input
         let key = Main.waitForKey();
         do Screen.clearScreen();
         return key;
     }
 
+    // Waits for user input
     function char waitForKey() {
         var char key;
         let key = 0;
@@ -101,20 +69,5 @@ class Main {
         }
         
         return key;
-    }
-    
-    // Use for test purposes only
-    function void printList(List list) {
-        var Node current;
-        var Pos currentData;
-        var int xPos, yPos;
-        let current = list.getFirstNode();
-        while (~(current = null)) {
-            let currentData = current.data();
-            do currentData.print();
-            do Output.println();
-            let current = current.getNext();
-        }
-        return;
     }
 }

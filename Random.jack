@@ -1,7 +1,7 @@
 class Random {
     field int multiplier, randNum, modulus;
-    static Array primeNumbers;
 
+    // Implement modulo operator here
     function int modulo(int dividend, int divisor) {
         var int remainder, quotient, integerPart;
         let quotient = Math.divide(dividend, divisor);
@@ -10,18 +10,20 @@ class Random {
         return remainder;
     }
 
+    // Create a new random number
     method void generate() {
         let randNum = Random.modulo(Math.multiply(multiplier, randNum), modulus);
         return;
     }
 
+    // Generate a random number up to a limit
     method int randInt(int upper) {
         do generate();
         return Random.modulo(randNum, upper);
     }
 
     constructor Random new(int seed) {
-        // let primeNumbers = Array.new(100);
+        // these are the best values based on testing
         let multiplier = 6;
         let modulus = 521;
         let randNum = seed;

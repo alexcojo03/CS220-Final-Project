@@ -2,7 +2,7 @@ class SnakeGame {
     field Snake player;
     field Pos startPos, fruitPos;
     field Random random;
-    field int currentDirection, gameSpeed;
+    field int currentDirection, gameSpeed, score;
 
     constructor SnakeGame new(int startX, int startY, int startDirection, int startSeed) {
         let startPos = Pos.new(startX, startY);
@@ -10,14 +10,14 @@ class SnakeGame {
         let player = Snake.new(startPos, startDirection);
         let currentDirection = startDirection;
         let gameSpeed = 100;
+        let score = 0;
 
         return this;
     }
 
     method void updateScore() {
-        var int score;
-        let score = player.getLength();
         // Top left
+        let score = getScore();
         do Output.moveCursor(0,0);
         do Output.printString("Score: ");
         do Output.printInt(score);
@@ -28,10 +28,8 @@ class SnakeGame {
     method void run() {
         // keep track of current key
         var char key;
-        // Test grow and shrink of snake by using integer variable
-        var int i;
-
-        let i = 0;
+        
+        do updateScore();
 
         // Create a loop, keep playing
         while (true) {
@@ -60,25 +58,27 @@ class SnakeGame {
                 do fruitPos.dispose();
                 // create a new fruit
                 do generateNewFruit();
+                do updateScore();
             } else {
                 do player.move();
             }
-
-            do updateScore();
 
             do Sys.wait(gameSpeed);
         }
         return;
     }
 
+    // Dispose of all methods to make sure game works
     method void dispose() {
         do player.dispose();
         do startPos.dispose();
         do fruitPos.dispose();
         do Memory.deAlloc(this);
+        do Memory.deAlloc(random);
         return;
     }
     
+    // Check if player intersect with an apple
     method boolean playerEatsApple() {
         var Pos head;
         let head = player.getHeadPosition();
@@ -96,6 +96,8 @@ class SnakeGame {
         // Make sure new fruit is not generated inside of the snake
         while(player.containsSegment(fruitPos)) {
             do fruitPos.dispose();
+            let randX = random.randInt(32);
+            let randY = random.randInt(16);
             let fruitPos = Pos.new(Math.multiply(randX, 16), Math.multiply(randY, 16));
         }
 

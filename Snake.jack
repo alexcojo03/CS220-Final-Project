@@ -50,6 +50,8 @@ class Snake {
         // Draw in white to erase
         do Screen.setColor(0);
         do Screen.drawRectangle(xPos, yPos, xPos + 15, yPos + 15);
+        // Garbage collection
+        do tail.dispose();
         
         return;
     }
@@ -96,9 +98,13 @@ class Snake {
 
     // Move snake by growing its head and then its tail
     method void move() {
+        // Adds a new head to the list
         do updateHead();   
-        do drawHead();
+        // Erase tail first so that head is not erased 
+        // if they happen to be at same position
         do eraseTail();
+        // draws the added head
+        do drawHead();
 
         return;
     }
@@ -119,14 +125,13 @@ class Snake {
 
     // Check if snake is out of bounds
     method boolean isOutOfBounds() {
-        // Since x, y is top left corner for each pos object
-        // compensate by adding width of each square
         var int headX, headY;
         var Pos head;
 
         let head = segments.getFirstData();
         let headX = head.getX();
         let headY = head.getY();
+        
         // Determine where the next position of the head
         // will be based on snakes direction
         if (direction = 0) {
@@ -143,6 +148,8 @@ class Snake {
         }
 
         // check left side
+        // Since x, y is top left corner for each pos object
+        // compensate by adding width of each square
         if (headX < 0) {
             return true;
         }
