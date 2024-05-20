@@ -13,7 +13,7 @@ class Main {
             // Generate new game with random seed of the users input key + their score
             // from the previous game
             let seed = score + choice;
-            let game = SnakeGame.new(32, 16, 1, seed);
+            let game = SnakeGame.new(256, 128, 1, seed);
             // Begin and end game here
             do Main.startGame();
             let score = game.getScore();
